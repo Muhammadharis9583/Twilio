@@ -1,3 +1,4 @@
+const http = require('http')
 const express = require('express')
 const cors = require('cors')
 const bodyParser = require('body-parser');
@@ -19,9 +20,10 @@ const params = {
   FunctionName: "Twilio_demo",
   InvocationType: "RequestResponse",
 };
-const accountSid = process.env.TWILIO_ACCOUNT_SID;
-const authToken = process.env.TWILIO_AUTH_TOKEN;
-const client = require("twilio")(accountSid, authToken);
+// const accountSid = process.env.TWILIO_ACCOUNT_SID;
+// const authToken = process.env.TWILIO_AUTH_TOKEN;
+// const client = require("twilio")(accountSid, authToken);
+const MessagingResponse = require('twilio').twiml.MessagingResponse
 app.get('/message/:num',(req,res)=>{
     const userContactNo = req.params.num
     console.log(userContactNo)
@@ -41,6 +43,23 @@ app.get('/message/:num',(req,res)=>{
       }
     });
 })
-app.listen(process.env.PORT, () =>
-  console.log(`Server running on port ${process.env.PORT}`)
-);
+app.post('/sms',(req,res)=>{
+  // console.log('running')
+  const twiml = new MessagingResponse()
+  lambda.invoke(params, function (err, data) {
+    if (err) console.log(err, err.stack);
+    else {
+      const response = JSON.parse(data.Payload);
+      console.log(response.body.message);
+      twiml.message(response.body.message);
+      res.writeHead(200, { "Content-Type": "text/xml" });
+      res.end(twiml.toString());
+    }
+  });
+})
+// app.listen(process.env.PORT, () =>
+//   console.log(`Server running on port ${process.env.PORT}`)
+// );
+http.createServer(app).listen(process.env.PORT,()=>{
+  console.log("server running on port 4000")
+})
