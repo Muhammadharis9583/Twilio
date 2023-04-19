@@ -1,5 +1,26 @@
 const express = require('express');
 const route = express.Router();
+const accountSid = "AC836e8f7e4bcb2ad1b53b2413f6d1fdb5";
+const authToken = "78a641dfdb12089a95317d9da8d1407e";
+const client = require("twilio")(accountSid, authToken);
+var logs = []
+client.messages
+  .list({ limit: 20 })
+  .then((messages) => {
+    const messageDetails = messages.map((message) => {
+        isoString = message.dateUpdated.toISOString();
+        logs.push({
+          phoneNumber: message.to,
+          date: isoString.substring(0, 10),
+          time: isoString.substring(11, 19),
+        });
+    });
+    messageDetails
+    console.log(logs);
+  })
+  .catch((error) => {
+    console.log(error);
+  });
 
 route.get('/auth-signin-basic', (req, res, next) => {
     res.render('auth-signin-basic', { title: 'Sign In', layout: 'layout/layout-without-nav' });
@@ -93,6 +114,7 @@ route.get('/dashboard-nft', (req, res, next) => {
 route.get("/dashboard-logs", (req, res, next) => {
   res.render("dashboard-logs", {
     title: "Logs Dashboard",
+    logs: logs,
     page_title: "Logs Dashboard",
     folder: "Dashboards",
   });
