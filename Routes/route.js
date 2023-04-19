@@ -90,6 +90,13 @@ route.get('/dashboard-projects', (req, res, next) => {
 route.get('/dashboard-nft', (req, res, next) => {
     res.render('dashboard-nft', { title: 'NFT Dashboard', page_title: 'NFT Dashboard', folder: 'Dashboards' });
 })
+route.get("/dashboard-logs", (req, res, next) => {
+  res.render("dashboard-logs", {
+    title: "Logs Dashboard",
+    page_title: "Logs Dashboard",
+    folder: "Dashboards",
+  });
+});
 route.get('/dashboard-job', (req, res, next) => {
     res.render('dashboard-job', { title: 'Job Dashboard', page_title: 'Job Dashboard', folder: 'Dashboards' });
 })
