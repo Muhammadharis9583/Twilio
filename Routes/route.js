@@ -1,17 +1,28 @@
 const express = require('express');
 const route = express.Router();
 const accountSid = "AC836e8f7e4bcb2ad1b53b2413f6d1fdb5";
-const authToken = "78a641dfdb12089a95317d9da8d1407e";
+const authToken = "7b7bcb129b0bef732575e27176a5fb6e";
 const client = require("twilio")(accountSid, authToken);
 var logs = []
 client.messages
   .list({ limit: 20 })
   .then((messages) => {
     const messageDetails = messages.map((message) => {
-        isoString = message.dateUpdated.toISOString();
+        const isoString = message.dateUpdated.toISOString();
+        const dateParts = new Date(isoString)
+          .toLocaleString("en-US", {
+            weekday: "short",
+            month: "short",
+            day: "numeric",
+          })
+          .split(" ");
+        // const day = dateParts[0];
+        const date = dateParts[2];
+        const month = dateParts[1];
         logs.push({
           phoneNumber: message.to,
-          date: isoString.substring(0, 10),
+          date,
+          month,
           time: isoString.substring(11, 19),
         });
     });
