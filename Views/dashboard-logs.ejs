@@ -1,0 +1,155 @@
+<%- contentFor('HeaderCss') %> <%- contentFor('body') %>
+
+<div class="row">
+  <div class="col-xxl-5">
+    <div class="card">
+      <div class="card-header align-items-center d-flex">
+        <h4 class="card-title mb-0 flex-grow-1">Message Logs</h4>
+        <div class="flex-shrink-0">
+          <div class="dropdown card-header-dropdown">
+            <a
+              class="text-reset dropdown-btn"
+              href="javascript:void(0);"
+              data-bs-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              <span class="text-muted fs-18"
+                ><i class="mdi mdi-dots-vertical"></i
+              ></span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-end">
+              <a class="dropdown-item" href="javascript:void(0);">Remove</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- end card header -->
+      <div class="card-body pt-0">
+        <ul class="list-group list-group-flush border-dashed">
+          <li class="list-group-item ps-0">
+            <div class="row align-items-center g-3">
+              <div class="col-auto">
+                <div class="avatar-sm p-1 py-2 h-auto bg-light rounded-3">
+                  <div class="text-center">
+                    <h5 class="mb-0">25</h5>
+                    <div class="text-muted">Tue</div>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <a href="javascript:void(0);" class="text-reset fs-14 mb-0"
+                  >Message sent to <b>+14407373236</b></a
+                >
+                <h5 class="text-muted mt-0 mb-1 fs-13">2:00am</h5>
+              </div>
+            </div>
+            <!-- end row -->
+          </li>
+          <!-- end -->
+          <li class="list-group-item ps-0">
+            <div class="row align-items-center g-3">
+              <div class="col-auto">
+                <div class="avatar-sm p-1 py-2 h-auto bg-light rounded-3">
+                  <div class="text-center">
+                    <h5 class="mb-0">20</h5>
+                    <div class="text-muted">Wed</div>
+                  </div>
+                </div>
+              </div>
+             <div class="col">
+                <a href="javascript:void(0);" class="text-reset fs-14 mb-0"
+                  >Message sent to <b>+14407373236</b></a
+                >
+                <h5 class="text-muted mt-0 mb-1 fs-13">3:00pm</h5>
+              </div>
+            </div>
+            <!-- end row -->
+          </li>
+          <!-- end -->
+          <li class="list-group-item ps-0">
+            <div class="row align-items-center g-3">
+              <div class="col-auto">
+                <div class="avatar-sm p-1 py-2 h-auto bg-light rounded-3">
+                  <div class="text-center">
+                    <h5 class="mb-0">17</h5>
+                    <div class="text-muted">Wed</div>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <a href="javascript:void(0);" class="text-reset fs-14 mb-0"
+                  >Message sent to <b>+14407373236</b></a
+                >
+                <h5 class="text-muted mt-0 mb-1 fs-13">7:30pm</h5>
+              </div>
+            </div>
+            <!-- end row -->
+          </li>
+          <!-- end -->
+          <li class="list-group-item ps-0">
+            <div class="row align-items-center g-3">
+              <div class="col-auto">
+                <div class="avatar-sm p-1 py-2 h-auto bg-light rounded-3">
+                  <div class="text-center">
+                    <h5 class="mb-0">12</h5>
+                    <div class="text-muted">Tue</div>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <a href="javascript:void(0);" class="text-reset fs-14 mb-0"
+                  >Message sent to <b>+14407373236</b></a
+                >
+                <h5 class="text-muted mt-0 mb-1 fs-13">12:00am</h5>
+              </div>
+            </div>
+            <!-- end row -->
+          </li>
+          <!-- end -->
+        </ul>
+        <!-- end -->
+        <div class="align-items-center mt-2 row g-3 text-center text-sm-start">
+          <div class="col-sm">
+            <div class="text-muted">
+              Showing<span class="fw-semibold">1</span> of
+              <span class="fw-semibold">125</span> Results
+            </div>
+          </div>
+          <div class="col-sm-auto">
+            <ul
+              class="pagination pagination-separated pagination-sm justify-content-center justify-content-sm-start mb-0"
+            >
+              <li class="page-item disabled">
+                <a href="javascript:void(0);" class="page-link">←</a>
+              </li>
+              <li class="page-item active">
+                <a href="javascript:void(0);" class="page-link">1</a>
+              </li>
+              <li class="page-item">
+                <a href="javascript:void(0);" class="page-link">2</a>
+              </li>
+              <li class="page-item">
+                <a href="javascript:void(0);" class="page-link">3</a>
+              </li>
+              <li class="page-item">
+                <a href="javascript:void(0);" class="page-link">→</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <!-- end card body -->
+    </div>
+    <!-- end card -->
+  </div>
+  <!-- end col -->
+</div>
+<!-- end row -->
+
+<%- contentFor('FooterJs') %>
+
+<!-- apexcharts -->
+<script src="assets/libs/apexcharts/apexcharts.min.js"></script>
+<!-- Dashboard init -->
+<script src="assets/js/pages/dashboard-crm.init.js"></script>
