@@ -42,3 +42,41 @@ exports.receiveMessageReply = (req, res) => {
     }
   });
 };
+
+exports.listMessages = (req, res, next) => {
+  var logs = [];
+  client.messages
+    .list({ limit: 20 })
+    .then((messages) => {
+      const messageDetails = messages.map((message) => {
+        const isoString = message.dateUpdated.toISOString();
+        const dateParts = new Date(isoString)
+          .toLocaleString("en-US", {
+            weekday: "short",
+            month: "short",
+            day: "numeric",
+          })
+          .split(" ");
+        // const day = dateParts[0];
+        const date = dateParts[2];
+        const month = dateParts[1];
+        logs.push({
+          phoneNumber: message.to,
+          date,
+          month,
+          time: isoString.substring(11, 19),
+        });
+      });
+      messageDetails;
+      console.log(logs);
+      res.status(200).render("dashboard-logs", {
+        title: "Logs Dashboard",
+        logs: logs,
+        page_title: "Logs Dashboard",
+        folder: "Dashboards",
+      });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
