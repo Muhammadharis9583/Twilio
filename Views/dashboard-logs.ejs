@@ -1,5 +1,4 @@
 <%- contentFor('HeaderCss') %> <%- contentFor('body') %>
-
 <div class="row">
   <div class="col-xxl-5">
     <div class="card">
@@ -27,86 +26,27 @@
       <!-- end card header -->
       <div class="card-body pt-0">
         <ul class="list-group list-group-flush border-dashed">
-          <li class="list-group-item ps-0">
+          <% logs.forEach((log)=>{%>
+            <li class="list-group-item ps-0">
             <div class="row align-items-center g-3">
               <div class="col-auto">
                 <div class="avatar-sm p-1 py-2 h-auto bg-light rounded-3">
                   <div class="text-center">
-                    <h5 class="mb-0">25</h5>
-                    <div class="text-muted">Tue</div>
+                    <h5 class="mb-0"><%= log.date %></h5>
+                    <div class="text-muted"><%= log.month %></div>
                   </div>
                 </div>
               </div>
               <div class="col">
                 <a href="javascript:void(0);" class="text-reset fs-14 mb-0"
-                  >Message sent to <b>+14407373236</b></a
+                  >Message sent to <b><%= log.phoneNumber %></b></a
                 >
-                <h5 class="text-muted mt-0 mb-1 fs-13">2:00am</h5>
+                <h5 class="text-muted mt-0 mb-1 fs-13"><%= log.time %></h5>
               </div>
             </div>
             <!-- end row -->
           </li>
-          <!-- end -->
-          <li class="list-group-item ps-0">
-            <div class="row align-items-center g-3">
-              <div class="col-auto">
-                <div class="avatar-sm p-1 py-2 h-auto bg-light rounded-3">
-                  <div class="text-center">
-                    <h5 class="mb-0">20</h5>
-                    <div class="text-muted">Wed</div>
-                  </div>
-                </div>
-              </div>
-             <div class="col">
-                <a href="javascript:void(0);" class="text-reset fs-14 mb-0"
-                  >Message sent to <b>+14407373236</b></a
-                >
-                <h5 class="text-muted mt-0 mb-1 fs-13">3:00pm</h5>
-              </div>
-            </div>
-            <!-- end row -->
-          </li>
-          <!-- end -->
-          <li class="list-group-item ps-0">
-            <div class="row align-items-center g-3">
-              <div class="col-auto">
-                <div class="avatar-sm p-1 py-2 h-auto bg-light rounded-3">
-                  <div class="text-center">
-                    <h5 class="mb-0">17</h5>
-                    <div class="text-muted">Wed</div>
-                  </div>
-                </div>
-              </div>
-              <div class="col">
-                <a href="javascript:void(0);" class="text-reset fs-14 mb-0"
-                  >Message sent to <b>+14407373236</b></a
-                >
-                <h5 class="text-muted mt-0 mb-1 fs-13">7:30pm</h5>
-              </div>
-            </div>
-            <!-- end row -->
-          </li>
-          <!-- end -->
-          <li class="list-group-item ps-0">
-            <div class="row align-items-center g-3">
-              <div class="col-auto">
-                <div class="avatar-sm p-1 py-2 h-auto bg-light rounded-3">
-                  <div class="text-center">
-                    <h5 class="mb-0">12</h5>
-                    <div class="text-muted">Tue</div>
-                  </div>
-                </div>
-              </div>
-              <div class="col">
-                <a href="javascript:void(0);" class="text-reset fs-14 mb-0"
-                  >Message sent to <b>+14407373236</b></a
-                >
-                <h5 class="text-muted mt-0 mb-1 fs-13">12:00am</h5>
-              </div>
-            </div>
-            <!-- end row -->
-          </li>
-          <!-- end -->
+        <%});%>
         </ul>
         <!-- end -->
         <div class="align-items-center mt-2 row g-3 text-center text-sm-start">
