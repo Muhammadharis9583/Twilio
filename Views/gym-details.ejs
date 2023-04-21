@@ -1,0 +1,42 @@
+<%- contentFor('HeaderCss') %> <%- contentFor('body') %>
+
+		<div class="row align-items-center g-3">
+				<div class="">
+					<p class="display-6 mb-2">
+						<span class="">Gym Name: </span>
+						<span class="text-muted"><%= gym.gymName %></span>
+					</p>
+					<h5 class="fs-3 mb-3">
+						<span class="">Gym Administrator: </span>
+						<span class="text-muted"><%= gym.gymAdministrator.name %></span>
+					</h5>
+				</div>
+				<p class="fw-bold fs-4 m-0 mb-1">
+					Address
+					<span class="text-muted">
+						<%= gym.gymAddress %>
+					</span>
+				</p>
+				<p class="fw-bold fs-4 m-0 mb-1">
+					Phone number: 
+					<span class="text-muted">
+						<%= gym.gymPhone %>
+					</span>
+				</p>
+				<p class="fw-bold fs-4 m-0 mb-1">
+					Email: 
+					<span class=" text-muted">
+						<%= gym.gymAdministrator.email %>
+					</span>
+				</p>
+				
+		</div>
+		<%- contentFor('FooterJs') %>
+
+			<!-- apexcharts -->
+			<script>
+				var baseUrl = "<%= baseUrl %>";
+			</script>
+			<script src="<%= baseUrl %>/assets/libs/apexcharts/apexcharts.min.js"></script>
+			<!-- Dashboard init -->
+			<script src="<%= baseUrl %>/assets/js/pages/dashboard-crm.init.js"></script>

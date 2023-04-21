@@ -1,6 +1,11 @@
 const express = require("express");
-const { listMessages } = require("../controllers/smsController");
+const dotenv = require("dotenv");
+dotenv.config({ path: "../config.env" });
 const route = express.Router();
+
+const { listMessages } = require("../controllers/smsController");
+const { isLoggedIn } = require("../controllers/authController");
+const { getGymDetails, listGyms } = require("../controllers/gymController");
 
 route.get("/auth-signin-basic", (req, res, next) => {
   res.render("auth-signin-basic", { title: "Sign In", layout: "layout/layout-without-nav" });
@@ -131,7 +136,9 @@ route.get("/dashboard-nft", (req, res, next) => {
     folder: "Dashboards",
   });
 });
-route.get("/dashboard-logs", listMessages);
+route.get("/dashboard-logs", isLoggedIn, listMessages, listGyms);
+route.get("/user/:uid/gym/:gid", isLoggedIn, getGymDetails);
+
 route.get("/dashboard-job", (req, res, next) => {
   res.render("dashboard-job", {
     title: "Job Dashboard",

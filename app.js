@@ -28,7 +28,8 @@ app.use(cookieParser());
 app.set("layout", "layout/layout");
 app.use(expressLayouts);
 
-app.use(express.static(__dirname + "/public"));
+app.use("/assets", express.static(path.join(__dirname, "public/assets")));
+// app.use(express.static(__dirname + "/public"));
 
 // app.use('/', authroute);
 app.use("/", route);
@@ -39,7 +40,7 @@ app.use((err, req, res, next) => {
   if (error.name === "JsonWebTokenError") {
     err.message = "please login again";
     err.statusCode = 401;
-    return res.status(401).redirect("view/login");
+    return res.status(401).redirect("/login");
   }
   err.statusCode = err.statusCode || 500;
   err.status = err.status || "errors";

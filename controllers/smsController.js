@@ -1,5 +1,8 @@
 const AWS = require("aws-sdk");
 const dotenv = require("dotenv");
+const User = require("../models/userModel");
+const catchAsync = require("../utils/catchAsync");
+
 dotenv.config({ path: "./config.env" });
 
 AWS.config.update({ region: "ap-northeast-1" });
@@ -21,7 +24,7 @@ exports.sendMessage = (req, res) => {
 
   client.messages
     .create({
-      body: "Hello from Twilio! Kill Yourself",
+      body: "Hello from Twilio!",
       from: process.env.MY_PHONE_NUM,
       to: userContactNo,
     })
@@ -43,11 +46,11 @@ exports.receiveMessageReply = (req, res) => {
   });
 };
 
-exports.listMessages = (req, res, next) => {
+exports.listMessages = catchAsync(async (req, res, next) => {
   var logs = [];
   client.messages
     .list({ limit: 20 })
-    .then((messages) => {
+    .then(async (messages) => {
       const messageDetails = messages.map((message) => {
         const isoString = message.dateUpdated.toISOString();
         const dateParts = new Date(isoString)
@@ -67,16 +70,15 @@ exports.listMessages = (req, res, next) => {
           time: isoString.substring(11, 19),
         });
       });
-      messageDetails;
-      console.log(logs);
-      res.status(200).render("dashboard-logs", {
-        title: "Logs Dashboard",
-        logs: logs,
-        page_title: "Logs Dashboard",
-        folder: "Dashboards",
-      });
+      req.body.logs = logs; // passing logs to next middleware function
+      next();
     })
     .catch((error) => {
       console.log(error);
+      return res.status(500).json({
+        status: "error",
+        message: "Something went wrong",
+        error,
+      });
     });
-};
+});
