@@ -1,7 +1,9 @@
 const express = require('express');
 const route = express.Router();
-const accountSid = "AC836e8f7e4bcb2ad1b53b2413f6d1fdb5";
-const authToken = "7b7bcb129b0bef732575e27176a5fb6e";
+const dotenv = require("dotenv");
+dotenv.config({ path: "./config.env" });
+const accountSid = process.env.TWILIO_ACCOUNT_SID;
+const authToken = process.env.TWILIO_AUTH_TOKEN;
 const client = require("twilio")(accountSid, authToken);
 var logs = []
 client.messages
