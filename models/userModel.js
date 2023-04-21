@@ -31,28 +31,15 @@ const userSchema = new mongoose.Schema({
       message: "Passwords don't match",
     },
   },
+  gyms: [
+    {
+      type: mongoose.Schema.ObjectId,
+      ref: "Gym",
+    },
+  ],
   passwordChangedAt: Date,
   passwordResetToken: String,
   passwordResetExpires: Date,
-  gymAddress: {
-    type: String,
-    required: [true, "Please provide an address"],
-  },
-  gymName: {
-    type: String,
-    required: [true, "Please provide a gym name"],
-  },
-  gymPhone: {
-    type: String,
-    required: [true, "Please provide a phone number"],
-    // validate the phone number using validator
-    validate: {
-      validator: function (el) {
-        return validator.isMobilePhone(el, "any");
-      },
-      message: "Please provide a valid phone number",
-    },
-  },
 });
 
 userSchema.pre("save", async function (next) {

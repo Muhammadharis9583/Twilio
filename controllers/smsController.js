@@ -1,5 +1,8 @@
 const AWS = require("aws-sdk");
 const dotenv = require("dotenv");
+const User = require("../models/userModel");
+const catchAsync = require("../utils/catchAsync");
+
 dotenv.config({ path: "./config.env" });
 
 // AWS.config.update({ region: "ap-northeast-1" });
@@ -43,7 +46,6 @@ exports.sendMessage = (req, res) => {
         })
         .then((message) => res.send(message));
     }})
-  
 };
 
 exports.receiveMessageReply = (req, res) => {
@@ -60,3 +62,40 @@ exports.receiveMessageReply = (req, res) => {
     }
   });
 };
+
+exports.listMessages = catchAsync(async (req, res, next) => {
+  var logs = [];
+  client.messages
+    .list({ limit: 20 })
+    .then(async (messages) => {
+      const messageDetails = messages.map((message) => {
+        const isoString = message.dateUpdated.toISOString();
+        const dateParts = new Date(isoString)
+          .toLocaleString("en-US", {
+            weekday: "short",
+            month: "short",
+            day: "numeric",
+          })
+          .split(" ");
+        // const day = dateParts[0];
+        const date = dateParts[2];
+        const month = dateParts[1];
+        logs.push({
+          phoneNumber: message.to,
+          date,
+          month,
+          time: isoString.substring(11, 19),
+        });
+      });
+      req.body.logs = logs; // passing logs to next middleware function
+      next();
+    })
+    .catch((error) => {
+      console.log(error);
+      return res.status(500).json({
+        status: "error",
+        message: "Something went wrong",
+        error,
+      });
+    });
+});
