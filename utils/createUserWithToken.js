@@ -12,7 +12,7 @@ exports.createUserWithToken = (user, statusCode, res) => {
     httpOnly: true,
     sameSite: "none",
     secure: true,
-    domain: "https://sweatsignal.herokuapp.com",
+    domain: "sweatsignal.herokuapp.com",
   };
   if (process.env.NODE_ENV === "production") {
     cookieOptions.secure = true;
