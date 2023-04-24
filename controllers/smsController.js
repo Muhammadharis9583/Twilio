@@ -44,7 +44,7 @@ exports.createCallerId = (req, res) => {
 };
 exports.sendMessage = (req, res) => {
   // const userContactNo = "+12564792178";
-  const userContactNo = "+923325244829";
+  const userContactNo = req.params.num;
   console.log(userContactNo);
   lambda.invoke(params, function (err, data) {
     if (err) console.log(err, err.stack);

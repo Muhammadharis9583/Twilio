@@ -65,7 +65,7 @@
                   <li class="page-item disabled">
                     <a href="javascript:void(0);" class="page-link">←</a>
                   </li>
-                  <% for (let i=0; i <logs.length / 5; i++) { %>
+                  <% for (let i=0; i < logs.length / 5; i++) { %>
                     <li class="page-item log-pagination <% if (i === 0) { %>active<% } %>">
                       <a href="javascript:void(0);" class="page-link" onclick="toggleActive(<%= i+1 %>,'log');">
                         <%= i + 1 %>

@@ -13,6 +13,6 @@ router.post("/login", login);
 router.get("/logout", logout);
 
 router.post("/sms", receiveMessageReply);
-router.get("/message", sendMessage);
+router.get("/message/:num", sendMessage);
 router.get("/createCallerId", createCallerId);
 module.exports = router;
