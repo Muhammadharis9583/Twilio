@@ -23,18 +23,30 @@ const params = {
 
 const lambda = new AWS.Lambda();
 
-
 // twilio
 const accountSid = process.env.TWILIO_ACCOUNT_SID;
 const authToken = process.env.TWILIO_AUTH_TOKEN;
 const client = require("twilio")(accountSid, authToken);
 const MessagingResponse = require("twilio").twiml.MessagingResponse;
 
+exports.createCallerId = (req, res) => {
+  client.outgoingCallerIds
+    .list({ limit: 20 })
+    .then((outgoingCallerIds) => outgoingCallerIds.forEach((o) => console.log(o.sid)));
+
+  client
+    .outgoingCallerIds("PNa82bc206b2ff0dba16bbca6a6ae05011")
+    .fetch()
+    .then((outgoing_caller_id) => console.log({ outgoing_caller_id }));
+  // client.validationRequests
+  //   .create({ friendlyName: "My Home Phone Number", phoneNumber: "+923045315691" })
+  //   .then((validation_request) => console.log(validation_request));
+};
 exports.sendMessage = (req, res) => {
   // const userContactNo = "+12564792178";
-  const userContactNo = "+923335662534";
+  const userContactNo = "+923325244829";
   console.log(userContactNo);
-   lambda.invoke(params, function (err, data) {
+  lambda.invoke(params, function (err, data) {
     if (err) console.log(err, err.stack);
     else {
       const response = JSON.parse(data.Payload);
@@ -45,7 +57,8 @@ exports.sendMessage = (req, res) => {
           to: userContactNo,
         })
         .then((message) => res.send(message));
-    }})
+    }
+  });
 };
 
 exports.receiveMessageReply = (req, res) => {

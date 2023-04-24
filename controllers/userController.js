@@ -1,10 +1,10 @@
-const HttpError = require('../utils/httpError');
-const User = require('../models/userModel');
-const bcrypt = require('bcryptjs');
-const catchAsync = require('../utils/catchAsync');
-const jwt = require('jsonwebtoken');
-const QueryHandler = require('../utils/QueryHandler');
-const { createUserWithToken } = require('../utils/createUserWithToken');
+const HttpError = require("../utils/httpError");
+const User = require("../models/userModel");
+const bcrypt = require("bcryptjs");
+const catchAsync = require("../utils/catchAsync");
+const jwt = require("jsonwebtoken");
+const QueryHandler = require("../utils/QueryHandler");
+const { createUserWithToken } = require("../utils/createUserWithToken");
 
 const updatableObjects = (obj, ...allowedFields) => {
   const newObj = {};
@@ -25,8 +25,8 @@ exports.getAllUsers = catchAsync(async (req, res, next) => {
   // -- BUILD QUERY --//
 
   const docs = new QueryHandler(
-    User.find({ role: { $ne: 'admin' } })
-      .select('+active')
+    User.find({ role: { $ne: "admin" } })
+      .select("+active")
       .bypassInactives(),
     req.query
   )
@@ -51,7 +51,7 @@ exports.getAllUsers = catchAsync(async (req, res, next) => {
   // -- SEND RESPONSE --//
 
   res.status(200).json({
-    status: 'success',
+    status: "success",
     results: users.length,
     data: {
       users: users.map((user) => user.toObject({ getters: true })),
@@ -60,14 +60,14 @@ exports.getAllUsers = catchAsync(async (req, res, next) => {
 });
 
 exports.getUserById = catchAsync(async (req, res, next) => {
-  const user = await User.findById(req.params.id).select('+password +active').bypassInactives();
+  const user = await User.findById(req.params.id);
 
   if (!user) {
-    return next(new HttpError('Could not find an account for the provided id!', 404));
+    return next(new HttpError("Could not find an account for the provided id!", 404));
   }
 
   res.status(200).send({
-    status: 'success',
+    status: "success",
     data: {
       user,
     },
@@ -75,11 +75,11 @@ exports.getUserById = catchAsync(async (req, res, next) => {
 });
 
 exports.updateUser = catchAsync(async (req, res, next) => {
-  const user = await User.findById(req.params.id).select('+password +active').bypassInactives();
+  const user = await User.findById(req.params.id).select("+password +active").bypassInactives();
   // bypassInactives is a custom mongoose query method that will bypass the middleware and will not filter out the inactive users. So that we can update the inactive user to active again.
 
   if (!user) {
-    return next(new HttpError('No User with that id found', 404));
+    return next(new HttpError("No User with that id found", 404));
   }
 
   user.name = req.body.name || user.name;
@@ -92,7 +92,7 @@ exports.updateUser = catchAsync(async (req, res, next) => {
   await user.save();
 
   res.status(200).send({
-    status: 'success',
+    status: "success",
     data: {
       user,
     },
@@ -102,21 +102,21 @@ exports.updateUser = catchAsync(async (req, res, next) => {
 exports.deleteUser = catchAsync(async (req, res, next) => {
   const doc = await User.findByIdAndDelete(req.params.id);
   if (!doc) {
-    return next(new HttpError('No User with that id found', 404));
+    return next(new HttpError("No User with that id found", 404));
   }
 
   res.status(204).send({
-    status: 'success',
+    status: "success",
     data: null,
   });
 });
 
 exports.updateMe = catchAsync(async (req, res, next) => {
   if (req.body.password || req.body.passwordConfirm) {
-    return next(new HttpError('This route does not support updating password!', 400));
+    return next(new HttpError("This route does not support updating password!", 400));
   }
 
-  const filteredObjects = updatableObjects(req.body, 'name', 'email');
+  const filteredObjects = updatableObjects(req.body, "name", "email");
 
   const updatedUser = await User.findByIdAndUpdate(req.user.id, filteredObjects, {
     new: true,
@@ -124,7 +124,7 @@ exports.updateMe = catchAsync(async (req, res, next) => {
   });
 
   res.status(200).send({
-    status: 'success',
+    status: "success",
     data: {
       user: updatedUser,
     },
@@ -134,7 +134,7 @@ exports.updateMe = catchAsync(async (req, res, next) => {
 exports.deleteMe = catchAsync(async (req, res, next) => {
   await User.findByIdAndDelete(req.user.id);
   res.status(204).send({
-    status: 'success',
+    status: "success",
     data: null,
   });
 });

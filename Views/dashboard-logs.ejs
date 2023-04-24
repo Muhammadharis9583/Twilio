@@ -1,172 +1,186 @@
 <%- contentFor('HeaderCss') %> <%- contentFor('body') %>
-<div class="row">
-  <div class="col-xxl-5">
-    <div class="card">
-      <div class="card-header align-items-center d-flex">
-        <h4 class="card-title mb-0 flex-grow-1">Message Logs</h4>
-        <div class="flex-shrink-0">
-          <div class="dropdown card-header-dropdown">
-            <a
-              class="text-reset dropdown-btn"
-              href="javascript:void(0);"
-              data-bs-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-            >
-              <span class="text-muted fs-18"
-                ><i class="mdi mdi-dots-vertical"></i
-              ></span>
-            </a>
-            <div class="dropdown-menu dropdown-menu-end">
-              <a class="dropdown-item" href="javascript:void(0);">Remove</a>
+    <div class="row">
+      <div class="col-xxl-5">
+        <div class="card">
+          <div class="card-header align-items-center d-flex">
+            <h4 class="card-title mb-0 flex-grow-1">Message Logs</h4>
+            <div class="flex-shrink-0">
+              <div class="dropdown card-header-dropdown">
+                <a class="text-reset dropdown-btn" href="javascript:void(0);" data-bs-toggle="dropdown"
+                  aria-haspopup="true" aria-expanded="false">
+                  <span class="text-muted fs-18"><i class="mdi mdi-dots-vertical"></i></span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-end">
+                  <a class="dropdown-item" href="javascript:void(0);">Remove</a>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
-      <!-- end card header -->
-      <div class="card-body pt-0">
-        <ul class="list-group list-group-flush border-dashed">
-          <% logs.forEach((log)=>{%>
-            <li class="list-group-item ps-0">
-              <div class="row align-items-center g-3">
-                <div class="col-auto">
-                  <div class="avatar-sm p-1 py-2 h-auto bg-light rounded-3">
-                    <div class="text-center">
-                      <h5 class="mb-0"><%= log.date %></h5>
-                      <div class="text-muted"><%= log.month %></div>
+          <!-- end card header -->
+          <div class="card-body pt-0">
+            <ul class="list-group list-group-flush border-dashed">
+              <% logs.forEach((log)=>{%>
+                <li class="list-group-item ps-0">
+                  <div class="row align-items-center g-3">
+                    <div class="col-auto">
+                      <div class="avatar-sm p-1 py-2 h-auto bg-light rounded-3">
+                        <div class="text-center">
+                          <h5 class="mb-0">
+                            <%= log.date %>
+                          </h5>
+                          <div class="text-muted">
+                            <%= log.month %>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <a href="#" class="text-reset fs-14 mb-0">
+                        Message sent to <b>
+                          <%= log.phoneNumber %>
+                        </b>
+                        <h5 class="text-muted mt-0 mb-1 fs-13">
+                          <%= log.time %>
+                        </h5>
+                      </a>
                     </div>
                   </div>
-                </div>
-                <div class="col">
-                  <a href="#" class="text-reset fs-14 mb-0">
-                    Message sent to <b><%= log.phoneNumber %></b>
-                    <h5 class="text-muted mt-0 mb-1 fs-13"><%= log.time %></h5>
-                  </a>
+                  <!-- end row -->
+                </li>
+                <%});%>
+            </ul>
+            <!-- end -->
+            <div class="align-items-center mt-2 row g-3 text-center text-sm-start">
+              <div class="col-sm">
+                <div class="text-muted">
+                  Showing<span class="fw-semibold"> 1 </span> of
+                  <span class="fw-semibold">
+                    <%= logs.length %>
+                  </span> Results
                 </div>
               </div>
-                <!-- end row -->
-            </li>
-          <%});%>
-        </ul>
-        <!-- end -->
-        <div class="align-items-center mt-2 row g-3 text-center text-sm-start">
-          <div class="col-sm">
-            <div class="text-muted">
-              Showing<span class="fw-semibold">1</span> of
-              <span class="fw-semibold">125</span> Results
+              <div class="col-sm-auto">
+                <ul
+                  class="pagination pagination-separated pagination-sm justify-content-center justify-content-sm-start mb-0">
+                  <li class="page-item disabled">
+                    <a href="javascript:void(0);" class="page-link">←</a>
+                  </li>
+                  <% for (let i=0; i <logs.length / 5; i++) { %>
+                    <li class="page-item log-pagination <% if (i === 0) { %>active<% } %>">
+                      <a href="javascript:void(0);" class="page-link" onclick="toggleActive(<%= i+1 %>,'log');">
+                        <%= i + 1 %>
+                      </a>
+                    </li>
+                    <% } %>
+                      <li class="page-item">
+                        <a href="javascript:void(0);" class="page-link">→</a>
+                      </li>
+                </ul>
+              </div>
             </div>
           </div>
-          <div class="col-sm-auto">
-            <ul
-              class="pagination pagination-separated pagination-sm justify-content-center justify-content-sm-start mb-0"
-            >
-              <li class="page-item disabled">
-                <a href="javascript:void(0);" class="page-link">←</a>
-              </li>
-              <li class="page-item active">
-                <a href="javascript:void(0);" class="page-link">1</a>
-              </li>
-              <li class="page-item">
-                <a href="javascript:void(0);" class="page-link">2</a>
-              </li>
-              <li class="page-item">
-                <a href="javascript:void(0);" class="page-link">3</a>
-              </li>
-              <li class="page-item">
-                <a href="javascript:void(0);" class="page-link">→</a>
-              </li>
-            </ul>
-          </div>
+          <!-- end card body -->
         </div>
-      </div>
-      <!-- end card body -->
-    </div>
 
-    <!-- GYM LOGS -->
-    <div class="card">
-      <div class="card-header align-items-center d-flex">
-        <h4 class="card-title mb-0 flex-grow-1">Gym Logs</h4>
-        <div class="flex-shrink-0">
-          <div class="dropdown card-header-dropdown">
-            <a
-              class="text-reset dropdown-btn"
-              href="javascript:void(0);"
-              data-bs-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-            >
-              <span class="text-muted fs-18"
-                ><i class="mdi mdi-dots-vertical"></i
-              ></span>
-            </a>
-            <div class="dropdown-menu dropdown-menu-end">
-              <a class="dropdown-item" href="javascript:void(0);">Remove</a>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- end card header -->
-      <div class="card-body pt-0">
-        <ul class="list-group list-group-flush border-dashed">
-          <% gyms.forEach((gym)=>{%>
-            <li class="list-group-item ps-0">
-              <div class="row align-items-center g-3">
-                <a href="user/<%= user._id %>/gym/<%= gym._id %>" class="text-reset fs-14 mb-0">
-                  <div class="col-sm">
-                    <h5 class="mb-0"><%= gym.gymName %></h5>
-                  </div>
-                  <div class="col-sm text-muted"><%= gym.gymAddress %></div>
-                  <div class="col-sm">
-                    Contact Number: <b><%= gym.gymPhone %></b>
-                  </div>
+        <!-- GYM LOGS -->
+        <div class="card">
+          <div class="card-header align-items-center d-flex">
+            <h4 class="card-title mb-0 flex-grow-1">Gym Logs</h4>
+            <div class="flex-shrink-0">
+              <div class="dropdown card-header-dropdown">
+                <a class="text-reset dropdown-btn" href="javascript:void(0);" data-bs-toggle="dropdown"
+                  aria-haspopup="true" aria-expanded="false">
+                  <span class="text-muted fs-18"><i class="mdi mdi-dots-vertical"></i></span>
                 </a>
+                <div class="dropdown-menu dropdown-menu-end">
+                  <a class="dropdown-item" href="javascript:void(0);">Remove</a>
+                </div>
               </div>
-                <!-- end row -->
-            </li>
-          <%});%>
-        </ul>
-        <!-- end -->
-        <div class="align-items-center mt-2 row g-3 text-center text-sm-start">
-          <div class="col-sm">
-            <div class="text-muted">
-              Showing<span class="fw-semibold">1</span> of
-              <span class="fw-semibold">125</span> Results
             </div>
           </div>
-          <div class="col-sm-auto">
-            <ul
-              class="pagination pagination-separated pagination-sm justify-content-center justify-content-sm-start mb-0"
-            >
-              <li class="page-item disabled">
-                <a href="javascript:void(0);" class="page-link">←</a>
-              </li>
-              <li class="page-item active">
-                <a href="javascript:void(0);" class="page-link">1</a>
-              </li>
-              <li class="page-item">
-                <a href="javascript:void(0);" class="page-link">2</a>
-              </li>
-              <li class="page-item">
-                <a href="javascript:void(0);" class="page-link">3</a>
-              </li>
-              <li class="page-item">
-                <a href="javascript:void(0);" class="page-link">→</a>
-              </li>
+          <!-- end card header -->
+          <div class="card-body pt-0">
+            <ul class="list-group list-group-flush border-dashed">
+              <% gyms.forEach((gym)=>{%>
+                <li class="list-group-item ps-0">
+                  <div class="row align-items-center g-3">
+                    <a href="user/<%= user._id %>/gym/<%= gym._id %>" class="text-reset fs-14 mb-0">
+                      <div class="col-sm">
+                        <h5 class="mb-0">
+                          <%= gym.gymName %>
+                        </h5>
+                      </div>
+                      <div class="col-sm text-muted">
+                        <%= gym.gymAddress %>
+                      </div>
+                      <div class="col-sm">
+                        Contact Number: <b>
+                          <%= gym.gymPhone %>
+                        </b>
+                      </div>
+                    </a>
+                  </div>
+                  <!-- end row -->
+                </li>
+                <%});%>
             </ul>
+            <!-- end -->
+            <div class="align-items-center mt-2 row g-3 text-center text-sm-start">
+              <div class="col-sm">
+                <div class="text-muted">
+                  Showing<span class="fw-semibold"> 1 </span> of
+                  <span class="fw-semibold">
+                    <%= gyms.length %>
+                  </span> Results
+                </div>
+              </div>
+              <div class="col-sm-auto">
+                <ul
+                  class="pagination pagination-separated pagination-sm justify-content-center justify-content-sm-start mb-0">
+                  <li class="page-item disabled">
+                    <a href="javascript:void(0);" class="page-link">←</a>
+                  </li>
+                  <% for (let i=0; i < gyms.length / 5; i++) { %>
+                    <li class="page-item gym-pagination <% if (i === 0) { %>active<% } %>">
+                      <a href="javascript:void(0);" class="page-link" onclick="toggleActive(<%= (i+1) %>,'gym');">
+                        <%= i + 1 %>
+                      </a>
+                    </li>
+                    <% } %>
+                      <li class="page-item">
+                        <a href="javascript:void(0);" class="page-link">→</a>
+                      </li>
+                </ul>
+              </div>
+            </div>
           </div>
+          <!-- end card body -->
         </div>
+        <!-- end card -->
       </div>
-      <!-- end card body -->
+      <!-- end col -->
     </div>
-    <!-- end card -->
-  </div>
-  <!-- end col -->
-</div>
-<!-- end row -->
+    <!-- end row -->
 
-<%- contentFor('FooterJs') %>
+    <%- contentFor('FooterJs') %>
 
-<!-- apexcharts -->
-<script src="assets/libs/apexcharts/apexcharts.min.js"></script>
-<!-- Dashboard init -->
-<script src="assets/js/pages/dashboard-crm.init.js"></script>
+      <!-- apexcharts -->
+      <script src="assets/libs/apexcharts/apexcharts.min.js"></script>
+      <!-- Dashboard init -->
+      <script src="assets/js/pages/dashboard-crm.init.js"></script>
+
+      <script>
+        function toggleActive(index, type) {
+          if (type === 'log') {
+            const active = document.querySelector('.log-pagination.active');
+            active.classList.remove('active');
+            const li = document.querySelector(`.log-pagination:nth-child(${index + 1})`);
+            li.classList.add('active');
+          } else if (type === 'gym') {
+            const active = document.querySelector('.gym-pagination.active');
+            active.classList.remove('active');
+            const li = document.querySelector(`.gym-pagination:nth-child(${index + 1})`);
+            li.classList.add('active');
+          }
+        }
+      </script>

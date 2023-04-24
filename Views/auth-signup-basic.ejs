@@ -44,10 +44,17 @@
                     <form class="form needs-validation" novalidate>
 
                       <div class="mb-3">
-                        <label for="name" class="form-label">Name <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="name" placeholder="Enter your name" required>
+                        <label for="fname" class="form-label">First Name <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="fname" placeholder="Enter your first name" required>
                         <div class="invalid-feedback">
-                          Please enter your name
+                          Please enter your first name
+                        </div>
+                      </div>
+                      <div class="mb-3">
+                        <label for="lname" class="form-label">Last Name <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="lname" placeholder="Enter your last name" required>
+                        <div class="invalid-feedback">
+                          Please enter your last name
                         </div>
                       </div>
                       <div class="mb-3">
@@ -58,10 +65,17 @@
                           Please enter email
                         </div>
                       </div>
+                      <div class="mb-3">
+                        <label for="username" class="form-label">Username <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="username" placeholder="Enter your username"
+                          required>
+                        <div class="invalid-feedback">
+                          Please enter your username
+                        </div>
+                      </div>
 
                       <div class="mb-3">
-                        <label class="form-label" for="password-input">Password<span
-                            class="text-danger">*</span></label>
+                        <label class="form-label" for="password-input">Password</label>
                         <div class="position-relative auth-pass-inputgroup">
                           <input type="password" class="form-control pe-5 password-input" onpaste="return false"
                             placeholder="Enter password" id="password-input" aria-describedby="passwordInput"
@@ -78,11 +92,9 @@
                       <div class="mb-2">
                         <label for="userpasswordconf" class="form-label">Password Confirm <span
                             class="text-danger">*</span></label>
-
                         <div class="position-relative auth-pass-inputgroup">
-                          <input type="password" class="form-control pe-5 password-input"
-                            aria-describedby="passwordInput" id="userpasswordconf" placeholder="Enter password again"
-                            required>
+                          <input type="password" class="form-control" id="userpasswordconf"
+                            placeholder="Enter password again" required>
                           <button
                             class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted password-addon"
                             type="button" id="password-addon-conf"><i class="ri-eye-fill align-middle"></i></button>
@@ -93,19 +105,130 @@
                       </div>
 
                       <div class="mb-2">
+                        <label for="contact" class="form-label">User Contact Number <span
+                            class="text-danger">*</span></label>
+                        <input type="number" class="form-control" id="contact"
+                          placeholder="Enter the user contact number" required>
+                        <div class="invalid-feedback">
+                          Please enter the user contact number
+                        </div>
+                      </div>
+                      <!-- User address -->
+                      <div class="mb-2">
+                        <label for="userStreet" class="form-label">User Street<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="userStreet" placeholder="Enter the User  Street"
+                          required>
+                        <div class="invalid-feedback">
+                          Please enter the user street
+                        </div>
+                      </div>
+                      <div class="mb-2">
+                        <label for="userCity" class="form-label">User City<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="userCity" placeholder="Enter the User City"
+                          required>
+                        <div class="invalid-feedback">
+                          Please enter the user city
+                        </div>
+                      </div>
+                      <div class="mb-2">
+                        <label for="userState" class="form-label">User State<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="userState" placeholder="Enter the User State"
+                          required>
+                        <div class="invalid-feedback">
+                          Please enter the user state
+                        </div>
+                      </div>
+                      <div class="mb-2">
+                        <label for="userZip" class="form-label">User Zip<span class="text-danger">*</span></label>
+                        <input type="number" class="form-control" id="userZip" placeholder="Enter the User Zip Code"
+                          required>
+                        <div class="invalid-feedback">
+                          Please enter the user zip code
+                        </div>
+                      </div>
+                      <div class="mb-2">
+                        <label for="userCountry" class="form-label">User Country<span
+                            class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="userCountry" placeholder="Enter the User  Country"
+                          required>
+                        <div class="invalid-feedback">
+                          Please enter the user country
+                        </div>
+                      </div>
+                      <div class="mb-2">
+                        <label for="userPostal" class="form-label">User Postal Code<span
+                            class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="userPostal"
+                          placeholder="Enter the User  Postal code" required>
+                        <div class="invalid-feedback">
+                          Please enter the user postal code
+                        </div>
+                      </div>
+                      <!-- create a radio button with choices "employee" or "customer" -->
+                      <div class="mb-2 d-flex gap-4">
+                        <label class="form-check-label mr-3">Employee
+                          <input class="form-check-input mr-2 ml-3" type="radio" name="user-type" value="employee"
+                            checked>
+                        </label>
+                        <label class="form-check-label mr-3">Customer
+                          <input class="form-check-input" type="radio" name="user-type" value="customer">
+                        </label>
+                      </div>
+                      <hr>
+
+                      <div class="mb-2">
                         <label for="gymName" class="form-label">Gym Name <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" id="gymName" placeholder="Enter the Gym Name" required>
                         <div class="invalid-feedback">
                           Please enter the gym name
                         </div>
                       </div>
-
                       <div class="mb-2">
-                        <label for="gymAddress" class="form-label">Gym Address<span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="gymAddress" placeholder="Enter the Gym Address"
+                        <label for="gymStreet" class="form-label">Gym Street<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="gymStreet" placeholder="Enter the Gym Street"
                           required>
                         <div class="invalid-feedback">
-                          Please enter the gym address
+                          Please enter the gym street
+                        </div>
+                      </div>
+                      <div class="mb-2">
+                        <label for="gymCity" class="form-label">Gym City<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="gymCity" placeholder="Enter the Gym City" required>
+                        <div class="invalid-feedback">
+                          Please enter the gym city
+                        </div>
+                      </div>
+                      <div class="mb-2">
+                        <label for="gymState" class="form-label">Gym State<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="gymState" placeholder="Enter the Gym State"
+                          required>
+                        <div class="invalid-feedback">
+                          Please enter the gym state
+                        </div>
+                      </div>
+                      <div class="mb-2">
+                        <label for="gymZip" class="form-label">Gym Zip<span class="text-danger">*</span></label>
+                        <input type="number" class="form-control" id="gymZip" placeholder="Enter the Gym Zip Code"
+                          required>
+                        <div class="invalid-feedback">
+                          Please enter the gym zip code
+                        </div>
+                      </div>
+                      <div class="mb-2">
+                        <label for="gymCountry" class="form-label">Gym Country<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="gymCountry" placeholder="Enter the Gym Country"
+                          required>
+                        <div class="invalid-feedback">
+                          Please enter the gym country
+                        </div>
+                      </div>
+                      <div class="mb-2">
+                        <label for="gymPostal" class="form-label">Gym Postal Code<span
+                            class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="gymPostal" placeholder="Enter the Gym Postal code"
+                          required>
+                        <div class="invalid-feedback">
+                          Please enter the gym postal code
                         </div>
                       </div>
                       <div class="mb-2">
@@ -119,10 +242,10 @@
                       </div>
 
                       <div class="mb-4">
-                        <p class="mb-0 fs-12 text-muted fst-italic">By registering you agree to
-                          the
-                          Velzon <a href="javascript:void(0);"
-                            class="text-primary text-decoration-underline fst-normal fw-medium">Terms
+                        <p class="mb-0 fs-13 text-muted fst-italic">By registering you agree
+                          to
+                          the Velzon <a href="javascript:void(0);"
+                            class="text-primary text-decoration-underline fst-normal fw-semibold">Terms
                             of Use</a></p>
                       </div>
 
@@ -146,7 +269,7 @@
 
                       <div class="mt-4 text-center">
                         <div class="signin-other-title">
-                          <h5 class="fs-13 mb-4 title text-muted">Create account with</h5>
+                          <h5 class="fs-14 mb-4 title text-muted">Create account with</h5>
                         </div>
 
                         <div>

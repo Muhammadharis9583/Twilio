@@ -28,16 +28,19 @@ exports.signup = catchAsync(async (req, res, next) => {
     });
 
     const newUser = new User({
-      name: req.body.name,
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
       email: req.body.email,
       password: req.body.password,
       passwordConfirm: req.body.passwordConfirm,
+      username: req.body.username,
+      contact: req.body.contact,
+      address: req.body.address,
     });
 
     // add user id to gym document
     gym.gymAdministrator = newUser._id;
     await gym.save({ session });
-
     newUser.gyms.push(gym);
 
     await newUser.save({ session });

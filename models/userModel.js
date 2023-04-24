@@ -4,13 +4,38 @@ const bcrypt = require("bcryptjs");
 const crypto = require("crypto");
 
 const userSchema = new mongoose.Schema({
-  name: { type: String, required: [true, "Please provide a name"] },
+  firstName: { type: String, required: [true, "Please provide a first name"] },
+  lastName: { type: String, required: [true, "Please provide a last name"] },
   email: {
     type: String,
     required: [true, "Please provide an email"],
     unique: true,
     lowercase: true,
     validate: [validator.isEmail, "Please provide a valid email"],
+  },
+  username: {
+    type: String,
+    required: [true, "Please provide a username"],
+    unique: true,
+  },
+  contact: {
+    type: String,
+    required: [true, "Please provide a phone number"],
+    // validate the phone number using validator
+    validate: {
+      validator: function (el) {
+        return validator.isMobilePhone(el, "any");
+      },
+      message: "Please provide a valid phone number",
+    },
+  },
+  address: {
+    street: { type: String, required: [true, "Please provide a street"] },
+    city: { type: String, required: [true, "Please provide a city"] },
+    state: { type: String, required: [true, "Please provide a state"] },
+    zip: { type: String, required: [true, "Please provide a zip"] },
+    country: { type: String, required: [true, "Please provide a country"] },
+    postalCode: { type: String, required: [true, "Please provide a postal code"] },
   },
   password: {
     type: String,
@@ -37,6 +62,21 @@ const userSchema = new mongoose.Schema({
       ref: "Gym",
     },
   ],
+  userType: {
+    type: String,
+    enum: ["employee", "customer"],
+    default: "customer",
+  },
+  accountStatus: {
+    type: String,
+    enum: ["active", "inactive", "suspended"],
+    default: "active",
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now(),
+  },
+  lastLogin: Date,
   passwordChangedAt: Date,
   passwordResetToken: String,
   passwordResetExpires: Date,
