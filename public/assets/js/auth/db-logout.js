@@ -5,7 +5,7 @@ document.getElementById("topbar-logout").addEventListener("click", (event) => {
     try {
       const res = await axios({
         method: "GET",
-        url: "http://localhost:7100/api/v1/users/logout",
+        url: "https://sweatsignal.herokuapp.com/api/v1/users/logout",
       });
       if (res.data.status === "success") {
         localStorage.removeItem("Cuser");

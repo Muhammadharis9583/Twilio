@@ -9,7 +9,7 @@ document.querySelector(".form").addEventListener("submit", (event) => {
     try {
       const res = await axios({
         method: "POST",
-        url: "http://localhost:7100/api/v1/users/login",
+        url: `https://sweatsignal.herokuapp.com/api/v1/users/login`,
         data: {
           email,
           password,
