@@ -15,6 +15,7 @@ document.querySelector(".form").addEventListener("submit", (event) => {
   const userZip = document.getElementById("userZip").value || "";
   const userCountry = document.getElementById("userCountry").value || "";
   const userPostal = document.getElementById("userPostal").value || "";
+  const userRole = document.getElementById("userRole").value || "";
   const userType = document.querySelector('input[name="user-type"]:checked').value;
 
   // ------------------------------------------
@@ -43,6 +44,7 @@ document.querySelector(".form").addEventListener("submit", (event) => {
       country: userCountry,
       postalCode: userPostal,
     },
+    userRole,
     userType,
     gymName,
     gymAddress: {

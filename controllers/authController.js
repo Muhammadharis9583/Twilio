@@ -36,6 +36,7 @@ exports.signup = catchAsync(async (req, res, next) => {
       username: req.body.username,
       contact: req.body.contact,
       address: req.body.address,
+      userRole: req.body.userRole,
     });
 
     // add user id to gym document
@@ -89,7 +90,14 @@ exports.login = catchAsync(async (req, res, next) => {
     return next(new HttpError("Incorrect email or password", 401));
   }
 
+  const loginDate = new Date(Date.now());
+  user.lastLogin = loginDate;
+  console.log("🚀 ~ file: authController.js:95 ~ exports.login=catchAsync ~ user:", user);
+
+  await user.save({ validateBeforeSave: false });
+
   // (3) If OK, then send token to client.
+  console.log("sending token");
   createUserWithToken(user, 200, res);
 });
 
@@ -166,7 +174,7 @@ exports.resetPassword = catchAsync(async (req, res, next) => {
 });
 
 exports.updatePassword = catchAsync(async (req, res, next) => {
-  const user = await User.findById(req.user.id).select("+password");
+  const user = await User.findById(req.body.user.id).select("+password");
 
   if (!(await user.correctPassword(req.body.currentPassword, user.password))) {
     return next(new HttpError("Incorrect Current Password!", 400));
@@ -176,7 +184,7 @@ exports.updatePassword = catchAsync(async (req, res, next) => {
   user.password = req.body.password;
   user.passwordConfirm = req.body.passwordConfirm;
 
-  await user.save();
+  await user.save({ validateBeforeSave: false });
 
   // 4) Login the user.
   createUserWithToken(user, 200, res);

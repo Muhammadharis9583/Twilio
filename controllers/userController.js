@@ -3,7 +3,7 @@ const User = require("../models/userModel");
 const bcrypt = require("bcryptjs");
 const catchAsync = require("../utils/catchAsync");
 const jwt = require("jsonwebtoken");
-const QueryHandler = require("../utils/QueryHandler");
+const APIFeatures = require("../utils/APIFeatures");
 const { createUserWithToken } = require("../utils/createUserWithToken");
 
 const updatableObjects = (obj, ...allowedFields) => {
@@ -24,7 +24,7 @@ exports.createUser = catchAsync(async (req, res, next) => {
 exports.getAllUsers = catchAsync(async (req, res, next) => {
   // -- BUILD QUERY --//
 
-  const docs = new QueryHandler(
+  const docs = new APIFeatures(
     User.find({ role: { $ne: "admin" } })
       .select("+active")
       .bypassInactives(),
@@ -116,11 +116,36 @@ exports.updateMe = catchAsync(async (req, res, next) => {
     return next(new HttpError("This route does not support updating password!", 400));
   }
 
-  const filteredObjects = updatableObjects(req.body, "name", "email");
+  const filteredObjects = updatableObjects(
+    req.body,
+    "firstName",
+    "lastName",
+    "email",
+    "phone",
+    "joiningDate",
+    "designation",
+    "city",
+    "country",
+    "zipCode"
+  );
 
-  const updatedUser = await User.findByIdAndUpdate(req.user.id, filteredObjects, {
+  const userObj = {
+    firstName: filteredObjects.firstName,
+    lastName: filteredObjects.lastName,
+    email: filteredObjects.email,
+    contact: filteredObjects.phone,
+    createdAt: filteredObjects.joiningDate,
+    userRole: filteredObjects.designation,
+    address: {
+      city: filteredObjects.city,
+      country: filteredObjects.country,
+      zip: filteredObjects.zipCode,
+    },
+  };
+
+  const updatedUser = await User.findByIdAndUpdate(req.body.user._id, userObj, {
     new: true,
-    runValidators: true,
+    runValidators: false,
   });
 
   res.status(200).send({
@@ -140,6 +165,12 @@ exports.deleteMe = catchAsync(async (req, res, next) => {
 });
 exports.getMyAccount = (req, res, next) => {
   // just set the req.params.id to the userId of the currently logged in object that will send the user object as a part of request using the protect middleware in the authController.
+  req.params.id = req.user.id;
+  next();
+};
+
+exports.getMe = (req, res, next) => {
+  // just set the req.params.id to the userId of the currently logged in object that will send the user object as a part of requeste using the protect middleware in the authController.
   req.params.id = req.user.id;
   next();
 };
