@@ -66,9 +66,13 @@ exports.sendMessage = (req, res) => {
     if (err) console.log(err, err.stack);
     else {
       const response = JSON.parse(data.Payload);
+      console.log(response.body.timestamp + response.body.count);
+      const message = `There are ${
+        response.body.count
+      } persons at the Gym at ${unixTimestampToTime(response.body.timestamp)}`;
       client.messages
         .create({
-          body: response.body.message,
+          body: message,
           from: process.env.MY_PHONE_NUM,
           to: userContactNo,
         })
