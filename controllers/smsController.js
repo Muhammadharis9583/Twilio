@@ -28,6 +28,22 @@ const accountSid = process.env.TWILIO_ACCOUNT_SID;
 const authToken = process.env.TWILIO_AUTH_TOKEN;
 const client = require("twilio")(accountSid, authToken);
 const MessagingResponse = require("twilio").twiml.MessagingResponse;
+function unixTimestampToTime(unixTimestamp) {
+  // create a new JavaScript Date object based on the unix timestamp
+  const date = new Date(unixTimestamp * 1000);
+
+  // hours part from the timestamp
+  const hours = date.getHours();
+
+  // minutes part from the timestamp
+  const minutes = "0" + date.getMinutes();
+
+  // seconds part from the timestamp
+  const seconds = "0" + date.getSeconds();
+
+  // return the time in the format of HH:MM:SS
+  return hours + ":" + minutes.substr(-2) + ":" + seconds.substr(-2);
+}
 
 exports.createCallerId = (req, res) => {
   client.outgoingCallerIds
@@ -50,9 +66,12 @@ exports.sendMessage = (req, res) => {
     if (err) console.log(err, err.stack);
     else {
       const response = JSON.parse(data.Payload);
+      const message = `There are ${
+        response.body.count
+      } persons in the Gym at ${unixTimestampToTime(response.body.timestamp)}`;
       client.messages
         .create({
-          body: response.body.message,
+          body: message,
           from: process.env.MY_PHONE_NUM,
           to: userContactNo,
         })
@@ -68,8 +87,11 @@ exports.receiveMessageReply = (req, res) => {
     if (err) console.log(err, err.stack);
     else {
       const response = JSON.parse(data.Payload);
-      console.log(response.body.message);
-      twiml.message(response.body.message);
+      console.log(response.body.timestamp + response.body.count);
+      const message = `There are ${
+        response.body.count
+      } persons at the Gym at ${unixTimestampToTime(response.body.timestamp)}`;
+      twiml.message(message);
       res.writeHead(200, { "Content-Type": "text/xml" });
       res.end(twiml.toString());
     }

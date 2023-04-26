@@ -4,8 +4,18 @@ dotenv.config({ path: "../config.env" });
 const route = express.Router();
 
 const { listMessages } = require("../controllers/smsController");
-const { isLoggedIn } = require("../controllers/authController");
+const { isLoggedIn, login, protect } = require("../controllers/authController");
 const { getGymDetails, listGyms } = require("../controllers/gymController");
+
+route.get("/login", (req, res, next) => {
+  res.render("Auth/login", { title: "Login", layout: false });
+});
+route.get("/register", (req, res, next) => {
+  res.render("Auth/register", { title: "Register", layout: false });
+});
+route.get("/forgotpassword", (req, res, next) => {
+  res.render("Auth/forgotpassword", { title: "Register", layout: false });
+});
 
 route.get("/auth-signin-basic", (req, res, next) => {
   res.render("auth-signin-basic", { title: "Sign In", layout: "layout/layout-without-nav" });
@@ -103,10 +113,22 @@ route.get("/auth-500", (req, res, next) => {
 
 // axios.defaults.headers.common['authorization'] = 'Bearer ' + localStorage.getItem('jwt')
 
-route.get("/", (req, res, next) => {
+route.use((req, res, next) => {
+  // check if there is cookie named jwt
+  if (!req.cookies.jwt) {
+    console.log("No cookie");
+    // return res.render("Auth/login", { title: "Login", layout: false });
+    return res.redirect("/login");
+  } else {
+    console.log("Cookie found");
+    next();
+  }
+});
+
+route.get("/", isLoggedIn, (req, res, next) => {
   res.render("index", { title: "Dashboard", page_title: "Dashboard", folder: "Dashboards" });
 });
-route.get("/index", (req, res, next) => {
+route.get("/index", isLoggedIn, (req, res, next) => {
   res.render("index", { title: "Dashboard", page_title: "Dashboard", folder: "Dashboards" });
 });
 route.get("/dashboard-analytics", (req, res, next) => {
@@ -524,7 +546,7 @@ route.get("/apps-api-key", (req, res, next) => {
 route.get("/pages-starter", (req, res, next) => {
   res.render("pages-starter", { title: "Starter", page_title: "Starter", folder: "Pages" });
 });
-route.get("/pages-profile", (req, res, next) => {
+route.get("/pages-profile", isLoggedIn, (req, res, next) => {
   res.render("pages-profile", {
     layout: "layout/layout-without-bradcrumb",
     title: "Profile",
@@ -532,7 +554,7 @@ route.get("/pages-profile", (req, res, next) => {
     folder: "Pages",
   });
 });
-route.get("/pages-profile-settings", (req, res, next) => {
+route.get("/pages-profile-settings", isLoggedIn, (req, res, next) => {
   res.render("pages-profile-settings", {
     layout: "layout/layout-without-bradcrumb",
     title: "Profile",
@@ -1029,14 +1051,11 @@ route.get("/layouts-vertical-hovered", (req, res, next) => {
   });
 });
 
-route.get("/login", (req, res, next) => {
-  res.render("Auth/login", { title: "Login", layout: false });
+route.get("*", (req, res, next) => {
+  // const err = new Error(`Can't find the ${req.originalUrl} route.`);
+  // err.status = 'fail';
+  // err.statusCode = 404;
+  // next(new HttpError(`Can't find the ${req.originalUrl} route.`, 404));
+  return res.redirect("/auth-404-basic");
 });
-route.get("/register", (req, res, next) => {
-  res.render("Auth/register", { title: "Register", layout: false });
-});
-route.get("/forgotpassword", (req, res, next) => {
-  res.render("Auth/forgotpassword", { title: "Register", layout: false });
-});
-
 module.exports = route;
