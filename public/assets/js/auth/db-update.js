@@ -7,6 +7,7 @@ if (form) {
     const firstName = document.querySelector("#firstnameInput").value;
     const lastName = document.querySelector("#lastnameInput").value;
     const email = document.querySelector("#emailInput").value;
+    const username = document.querySelector("#usernameInput").value;
     const phone = document.querySelector("#phonenumberInput").value;
     const joiningDate = document.querySelector("#JoiningdateInput").value;
 
@@ -24,6 +25,7 @@ if (form) {
       firstName,
       lastName,
       email,
+      username,
       contact: phone,
       createdAt: joiningDate,
       userRole: designation,
