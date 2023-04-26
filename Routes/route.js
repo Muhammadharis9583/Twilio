@@ -1051,4 +1051,11 @@ route.get("/layouts-vertical-hovered", (req, res, next) => {
   });
 });
 
+route.get("*", (req, res, next) => {
+  // const err = new Error(`Can't find the ${req.originalUrl} route.`);
+  // err.status = 'fail';
+  // err.statusCode = 404;
+  // next(new HttpError(`Can't find the ${req.originalUrl} route.`, 404));
+  return res.render("auth-404-basic", { title: "404 Error" });
+});
 module.exports = route;

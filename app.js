@@ -36,14 +36,6 @@ app.use("/assets", express.static(path.join(__dirname, "public/assets")));
 app.use("/api/v1/users", userRoutes);
 app.use("/", route);
 
-app.all("*", (req, res, next) => {
-  // const err = new Error(`Can't find the ${req.originalUrl} route.`);
-  // err.status = 'fail';
-  // err.statusCode = 404;
-  // next(new HttpError(`Can't find the ${req.originalUrl} route.`, 404));
-  return res.render("auth-404-basic", { title: "404 Error" });
-});
-
 app.use((err, req, res, next) => {
   let error = { ...err };
   if (error.name === "JsonWebTokenError") {
