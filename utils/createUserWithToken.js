@@ -4,6 +4,7 @@ const createToken = (id) =>
   jwt.sign({ id }, process.env.JWT_SECRET_KEY, { expiresIn: process.env.JWT_EXPIRES_IN });
 
 exports.createUserWithToken = (user, statusCode, res) => {
+  console.log(user.id);
   const token = createToken(user.id);
 
   const cookieOptions = {

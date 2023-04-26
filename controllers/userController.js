@@ -121,29 +121,35 @@ exports.updateMe = catchAsync(async (req, res, next) => {
     "firstName",
     "lastName",
     "email",
-    "phone",
-    "joiningDate",
-    "designation",
-    "city",
-    "country",
-    "zipCode"
+    "contact",
+    "createdAt",
+    "userRole",
+    "address"
+    // "street",
+    // "city",
+    // "country",
+    // "state",
+    // "zip",
+    // "postalCode"
   );
 
   const userObj = {
     firstName: filteredObjects.firstName,
     lastName: filteredObjects.lastName,
     email: filteredObjects.email,
-    contact: filteredObjects.phone,
-    createdAt: filteredObjects.joiningDate,
-    userRole: filteredObjects.designation,
+    contact: filteredObjects.contact,
+    createdAt: filteredObjects.createdAt,
+    userRole: filteredObjects.userRole,
     address: {
+      street: filteredObjects.street,
       city: filteredObjects.city,
       country: filteredObjects.country,
       zip: filteredObjects.zipCode,
+      postalCode: filteredObjects.postalCode,
     },
   };
 
-  const updatedUser = await User.findByIdAndUpdate(req.body.user._id, userObj, {
+  const updatedUser = await User.findByIdAndUpdate(req.body.user._id, filteredObjects, {
     new: true,
     runValidators: false,
   });

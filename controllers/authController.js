@@ -74,7 +74,6 @@ exports.login = catchAsync(async (req, res, next) => {
       So with +password password will appear again.
      */
 
-  console.log("user", user);
   let isCorrect;
   if (user) {
     if (!user.password) {
@@ -92,7 +91,6 @@ exports.login = catchAsync(async (req, res, next) => {
 
   const loginDate = new Date(Date.now());
   user.lastLogin = loginDate;
-  console.log("🚀 ~ file: authController.js:95 ~ exports.login=catchAsync ~ user:", user);
 
   await user.save({ validateBeforeSave: false });
 

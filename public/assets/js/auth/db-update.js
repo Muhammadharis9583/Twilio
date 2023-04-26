@@ -12,28 +12,36 @@ if (form) {
 
     const designation = document.querySelector("#designationInput").value;
 
+    const street = document.querySelector("#streetInput").value;
     const city = document.querySelector("#cityInput").value;
     const country = document.querySelector("#countryInput").value;
+    const state = document.querySelector("#stateInput").value;
 
     const zipCode = document.querySelector("#zipcodeInput").value;
+    const postalCode = document.querySelector("#postalCodeInput").value;
 
     const data = {
       firstName,
       lastName,
       email,
-      phone,
-      joiningDate,
-      designation,
-      city,
-      country,
-      zipCode,
+      contact: phone,
+      createdAt: joiningDate,
+      userRole: designation,
+      address: {
+        street,
+        city,
+        country,
+        state,
+        zip: zipCode,
+        postalCode,
+      },
     };
 
     const update = async () => {
       try {
         const res = await axios({
           method: "PATCH",
-          url: "http://sweatsignal.herokuapp.com/api/v1/users/updateMyInfo",
+          url: "https://sweatsignal.herokuapp.com/api/v1/users/updateMyInfo",
           data,
         });
         if (res.data.status === "success") {

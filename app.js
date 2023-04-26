@@ -13,7 +13,7 @@ const userRoutes = require("./Routes/userRoutes");
 
 const app = express();
 app.use(cors());
-
+app.disable("etag");
 mongoose.set("strictQuery", true);
 dotenv.config({ path: "./config.env" });
 
@@ -32,8 +32,8 @@ app.use("/assets", express.static(path.join(__dirname, "public/assets")));
 // app.use(express.static(__dirname + "/public"));
 
 // app.use('/', authroute);
-app.use("/", route);
 app.use("/api/v1/users", userRoutes);
+app.use("/", route);
 
 app.use((err, req, res, next) => {
   let error = { ...err };

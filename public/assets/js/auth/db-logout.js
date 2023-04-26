@@ -9,7 +9,7 @@ document.getElementById("topbar-logout").addEventListener("click", (event) => {
       });
       if (res.data.status === "success") {
         localStorage.removeItem("Cuser");
-        location.reload(true);
+        location.assign("/login");
         // true will make the server reload the page and not the browser
       }
     } catch (error) {

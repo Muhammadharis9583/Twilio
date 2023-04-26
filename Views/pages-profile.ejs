@@ -24,7 +24,7 @@
                         <p class="text-white-75"><%= user.userRole %></p>
                         <div class="hstack text-white-50 gap-1">
                             <div class="me-2"><i
-                                    class="ri-map-pin-user-line me-1 text-white-75 fs-16 align-middle"></i><%= user.address.state %>,
+                                    class="ri-map-pin-user-line me-1 text-white-75 fs-16 align-middle"></i><%= user.address.city %>,
                                 <%= user.address.country %></div>
                             <div><i class="ri-building-line me-1 text-white-75 fs-16 align-middle"></i><%= user.address.city %>
                             </div>
@@ -128,7 +128,7 @@
                                                         </tr>
                                                         <tr>
                                                             <th class="ps-0" scope="row">Location :</th>
-                                                            <td class="text-muted"><%= user.address.city %>, <%= user.address.state %>, <%= user.address.country %>
+                                                            <td class="text-muted">Street: <%= user.address.street %>, City: <%= user.address.city %>, State: <%= user.address.state %>, Country: <%= user.address.country %>
                                                             </td>
                                                         </tr>
                                                         <tr>

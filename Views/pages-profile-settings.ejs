@@ -229,6 +229,13 @@
                                 <!--end col-->
                                 <div class="col-lg-4">
                                     <div class="mb-3">
+                                        <label for="streetInput" class="form-label">Street</label>
+                                        <input type="text" class="form-control" id="streetInput" placeholder="Street"
+                                            value="<%= user.address.street %>" />
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="mb-3">
                                         <label for="cityInput" class="form-label">City</label>
                                         <input type="text" class="form-control" id="cityInput" placeholder="City"
                                             value="<%= user.address.city %>" />
@@ -242,6 +249,13 @@
                                             value="<%= user.address.country %>" />
                                     </div>
                                 </div>
+                                <div class="col-lg-4">
+                                    <div class="mb-3">
+                                        <label for="stateInput" class="form-label">State</label>
+                                        <input type="text" class="form-control" id="stateInput" placeholder="State"
+                                            value="<%= user.address.state %>" />
+                                    </div>
+                                </div>
                                 <!--end col-->
                                 <div class="col-lg-4">
                                     <div class="mb-3">
@@ -249,6 +263,14 @@
                                             Code</label>
                                         <input type="text" class="form-control" minlength="5" maxlength="6"
                                             id="zipcodeInput" placeholder="Enter zipcode" value="<%= user.address.zip%>">
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="mb-3">
+                                        <label for="postalCodeInput" class="form-label">Postal
+                                            Code</label>
+                                        <input type="text" class="form-control" minlength="5" maxlength="6"
+                                            id="postalCodeInput" placeholder="Enter Postal Code" value="<%= user.address.postalCode%>">
                                     </div>
                                 </div>
                                 <!--end col-->
