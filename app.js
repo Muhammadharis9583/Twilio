@@ -10,6 +10,7 @@ const path = require("path");
 
 const route = require("./Routes/route");
 const userRoutes = require("./Routes/userRoutes");
+const HttpError = require("./utils/httpError");
 
 const app = express();
 app.use(cors());
@@ -34,6 +35,14 @@ app.use("/assets", express.static(path.join(__dirname, "public/assets")));
 // app.use('/', authroute);
 app.use("/api/v1/users", userRoutes);
 app.use("/", route);
+
+app.all("*", (req, res, next) => {
+  // const err = new Error(`Can't find the ${req.originalUrl} route.`);
+  // err.status = 'fail';
+  // err.statusCode = 404;
+
+  next(new HttpError(`Can't find the ${req.originalUrl} route.`, 404));
+});
 
 app.use((err, req, res, next) => {
   let error = { ...err };
