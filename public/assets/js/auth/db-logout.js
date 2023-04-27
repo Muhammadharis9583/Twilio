@@ -1,11 +1,14 @@
+import { environment } from "../config.js";
+
 document.getElementById("topbar-logout").addEventListener("click", (event) => {
   event.preventDefault();
-
   const logout = async () => {
+    const url =
+      environment === "development" ? "http://localhost:7100" : "https://sweatsignal.herokuapp.com";
     try {
       const res = await axios({
         method: "GET",
-        url: "https://sweatsignal.herokuapp.com/api/v1/users/logout",
+        url: `${url}/api/v1/users/logout`,
       });
       if (res.data.status === "success") {
         localStorage.removeItem("Cuser");

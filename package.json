@@ -4,7 +4,8 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon app.js"
+    "start": "set NODE_ENV=production&cd public\\assets\\js && echo export const environment = 'production'; > config.js && cd ../../../ && nodemon app.js",
+    "start:dev": "cd public\\assets\\js && echo export const environment = 'development'; > config.js && cd ../../../ && nodemon app.js"
   },
   "author": "",
   "license": "ISC",

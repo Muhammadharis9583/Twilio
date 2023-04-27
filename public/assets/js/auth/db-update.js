@@ -1,3 +1,5 @@
+import { environment } from "../config.js";
+
 const form = document.querySelector(".form");
 const passwordForm = document.querySelector("#passwordForm");
 if (form) {
@@ -40,10 +42,14 @@ if (form) {
     };
 
     const update = async () => {
+      const url =
+        environment === "development"
+          ? "http://localhost:7100"
+          : "https://sweatsignal.herokuapp.com";
       try {
         const res = await axios({
           method: "PATCH",
-          url: "https://sweatsignal.herokuapp.com/api/v1/users/updateMyInfo",
+          url: `${url}/api/v1/users/updateMyInfo`,
           data,
         });
         if (res.data.status === "success") {
@@ -66,6 +72,9 @@ if (form) {
 }
 
 if (passwordForm) {
+  const url =
+    environment === "development" ? "http://localhost:7100" : "https://sweatsignal.herokuapp.com";
+
   passwordForm.addEventListener("submit", async (e) => {
     e.preventDefault();
     console.log("updaing password");
@@ -76,7 +85,7 @@ if (passwordForm) {
     try {
       const res = await axios({
         method: "PATCH",
-        url: "http://sweatsignal.herokuapp.com/api/v1/users/updatePassword",
+        url: `${url}/api/v1/users/updatePassword`,
         data: {
           currentPassword,
           password,

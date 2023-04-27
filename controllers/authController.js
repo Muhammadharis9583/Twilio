@@ -100,14 +100,17 @@ exports.login = catchAsync(async (req, res, next) => {
 });
 
 exports.logout = catchAsync(async (req, res) => {
-  res.cookie("jwt", "loggingout", {
-    expires: new Date(Date.now() + 2 * 1000), // 5sec
+  const cookieOptions = {
+    expires: new Date(Date.now() + 2 * 1000), // 2 seconds
+    // secure: true,
     httpOnly: true,
-    httpOnly: true,
-    sameSite: "none",
-    secure: true,
-    domain: "sweatsignal.herokuapp.com",
-  });
+  };
+  if (process.env.NODE_ENV === "production") {
+    cookieOptions.secure = true;
+    cookieOptions.sameSite = "none";
+    cookieOptions.domain = "sweatsignal.herokuapp.com";
+  }
+  res.cookie("jwt", "loggingout", cookieOptions);
 
   res.status(200).send({ status: "success" });
 });

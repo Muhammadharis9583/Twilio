@@ -1,4 +1,5 @@
 // const axios = require("axios");
+import { environment } from "../config.js";
 
 document.querySelector(".form").addEventListener("submit", (event) => {
   event.preventDefault();
@@ -58,10 +59,12 @@ document.querySelector(".form").addEventListener("submit", (event) => {
     gymPhone,
   };
   const register = async () => {
+    const url =
+      environment === "development" ? "http://localhost:7100" : "https://sweatsignal.herokuapp.com";
     try {
       const res = await axios({
         method: "POST",
-        url: "https://sweatsignal.herokuapp.com/api/v1/users/signup",
+        url: `${url}/api/v1/users/signup`,
         data: body,
       });
       if (res.data.status === "success") {

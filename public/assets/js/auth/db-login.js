@@ -1,13 +1,16 @@
+import { environment } from "../config.js";
+
 document.querySelector(".form").addEventListener("submit", (event) => {
   event.preventDefault();
   var email = document.getElementById("username").value || "";
   var password = document.getElementById("userpassword").value || "";
   const login = async () => {
-    console.log(email, password);
+    const url =
+      environment === "development" ? "http://localhost:7100" : "https://sweatsignal.herokuapp.com";
     try {
       const res = await axios({
         method: "POST",
-        url: `https://sweatsignal.herokuapp.com/api/v1/users/login`,
+        url: `${url}/api/v1/users/login`,
         data: {
           email,
           password,

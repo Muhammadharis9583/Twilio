@@ -10,7 +10,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
     <meta content="Themesbrand" name="author" />
-    <base href="https://sweatsignal.herokuapp.com/">
+    <base href="http://localhost:7100/">
+    <script type="module">
+        import {environment} from '../../public/assets/js/config.js'
+        var base_url = environment === 'development' ? 'http://localhost:7100/' : 'https://velzon.herokuapp.com/'
+        document.querySelector('base').setAttribute('href', base_url);
+    </script>
     <!-- App favicon -->
     <link rel="shortcut icon" href="assets/images/favicon.ico">
     <%- HeaderCss %>

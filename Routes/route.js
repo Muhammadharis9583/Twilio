@@ -125,10 +125,12 @@ route.use((req, res, next) => {
   }
 });
 
-route.get("/", isLoggedIn, (req, res, next) => {
+route.use(isLoggedIn);
+
+route.get("/", (req, res, next) => {
   res.render("index", { title: "Dashboard", page_title: "Dashboard", folder: "Dashboards" });
 });
-route.get("/index", isLoggedIn, (req, res, next) => {
+route.get("/index", (req, res, next) => {
   res.render("index", { title: "Dashboard", page_title: "Dashboard", folder: "Dashboards" });
 });
 route.get("/dashboard-analytics", (req, res, next) => {
@@ -158,8 +160,8 @@ route.get("/dashboard-nft", (req, res, next) => {
     folder: "Dashboards",
   });
 });
-route.get("/dashboard-logs", isLoggedIn, listMessages, listGyms);
-route.get("/user/:uid/gym/:gid", isLoggedIn, getGymDetails);
+route.get("/dashboard-logs", listMessages, listGyms);
+route.get("/user/:uid/gym/:gid", getGymDetails);
 
 route.get("/dashboard-job", (req, res, next) => {
   res.render("dashboard-job", {
@@ -546,7 +548,7 @@ route.get("/apps-api-key", (req, res, next) => {
 route.get("/pages-starter", (req, res, next) => {
   res.render("pages-starter", { title: "Starter", page_title: "Starter", folder: "Pages" });
 });
-route.get("/pages-profile", isLoggedIn, (req, res, next) => {
+route.get("/pages-profile", (req, res, next) => {
   res.render("pages-profile", {
     layout: "layout/layout-without-bradcrumb",
     title: "Profile",
@@ -554,7 +556,7 @@ route.get("/pages-profile", isLoggedIn, (req, res, next) => {
     folder: "Pages",
   });
 });
-route.get("/pages-profile-settings", isLoggedIn, (req, res, next) => {
+route.get("/pages-profile-settings", (req, res, next) => {
   res.render("pages-profile-settings", {
     layout: "layout/layout-without-bradcrumb",
     title: "Profile",
