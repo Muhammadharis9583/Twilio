@@ -1,6 +1,3 @@
-//To set the environment automatically
-const config = require('./app');
-
 document.querySelector(".form").addEventListener("submit", (event) => {
   event.preventDefault();
   var email = document.getElementById("username").value || "";
@@ -10,7 +7,7 @@ document.querySelector(".form").addEventListener("submit", (event) => {
     try {
       const res = await axios({
         method: "POST",
-        url: `${config.url}/api/v1/users/login`,
+        url: `https://localhost:7100/api/v1/users/login`,
         data: {
           email,
           password,

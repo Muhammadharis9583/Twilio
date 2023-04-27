@@ -1,6 +1,3 @@
-//To set the environment automatically
-const config = require('./app');
-
 document.getElementById("topbar-logout").addEventListener("click", (event) => {
   event.preventDefault();
 
@@ -8,8 +5,8 @@ document.getElementById("topbar-logout").addEventListener("click", (event) => {
     try {
       const res = await axios({
         method: "GET",
-        url: `${config.url}/api/v1/users/logout`,
-      });0
+        url: "https://localhost:7100/api/v1/users/logout",
+      });
       if (res.data.status === "success") {
         localStorage.removeItem("Cuser");
         location.assign("/login");
