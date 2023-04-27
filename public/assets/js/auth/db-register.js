@@ -64,6 +64,7 @@ document.querySelector(".form").addEventListener("submit", (event) => {
     try {
       const res = await axios({
         method: "POST",
+
         url: `${url}/api/v1/users/signup`,
         data: body,
       });
