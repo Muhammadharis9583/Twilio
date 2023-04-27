@@ -101,8 +101,12 @@ exports.login = catchAsync(async (req, res, next) => {
 
 exports.logout = catchAsync(async (req, res) => {
   res.cookie("jwt", "loggingout", {
-    expires: new Date(Date.now() + 10 * 1000), // 10sec
+    expires: new Date(Date.now() + 5 * 1000), // 5sec
     httpOnly: true,
+    httpOnly: true,
+    sameSite: "none",
+    secure: true,
+    domain: "sweatsignal.herokuapp.com",
   });
 
   res.status(200).send({ status: "success" });
