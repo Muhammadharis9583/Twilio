@@ -1,3 +1,6 @@
+//To set the environment automatically
+const config = require('./app');
+
 const form = document.querySelector(".form");
 const passwordForm = document.querySelector("#passwordForm");
 if (form) {
@@ -43,7 +46,7 @@ if (form) {
       try {
         const res = await axios({
           method: "PATCH",
-          url: "https://sweatsignal.herokuapp.com/api/v1/users/updateMyInfo",
+          url: "https://localhost:7100/api/v1/users/updateMyInfo",
           data,
         });
         if (res.data.status === "success") {
@@ -76,7 +79,7 @@ if (passwordForm) {
     try {
       const res = await axios({
         method: "PATCH",
-        url: "http://sweatsignal.herokuapp.com/api/v1/users/updatePassword",
+        url: '${config.url}/api/v1/users/updatePassword',
         data: {
           currentPassword,
           password,

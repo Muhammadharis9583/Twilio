@@ -12,6 +12,9 @@ const route = require("./Routes/route");
 const userRoutes = require("./Routes/userRoutes");
 const HttpError = require("./utils/httpError");
 
+// Import the built-in 'process' module
+const process = require('process');
+
 const app = express();
 app.use(cors());
 app.disable("etag");
@@ -61,3 +64,21 @@ mongoose
 
 const http = require("http").createServer(app);
 http.listen(process.env.PORT, () => console.log(`Server running on port ${process.env.PORT}`));
+
+
+
+// Define the URL variable based on the environment
+let url;
+
+if (process.env.NODE_ENV === 'production') {
+  // Running on Heroku
+  url = process.env.APP_URL || 'https://sweatsignal.herokuapp.com';
+} else {
+  // Running on localhost
+  url = process.env.LOCALHOST_URL || 'http://localhost:7100';
+}
+
+// Export the URL variable
+module.exports = {
+  url,
+};

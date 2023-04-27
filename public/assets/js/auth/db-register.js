@@ -1,5 +1,9 @@
 // const axios = require("axios");
 
+//To set the environment automatically
+const config = require('./app');
+
+
 document.querySelector(".form").addEventListener("submit", (event) => {
   event.preventDefault();
   const firstName = document.getElementById("fname").value || "";
@@ -61,7 +65,7 @@ document.querySelector(".form").addEventListener("submit", (event) => {
     try {
       const res = await axios({
         method: "POST",
-        url: "https://sweatsignal.herokuapp.com/api/v1/users/signup",
+        url: '${config.url}/api/v1/users/signup',
         data: body,
       });
       if (res.data.status === "success") {
