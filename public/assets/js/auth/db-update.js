@@ -46,7 +46,7 @@ if (form) {
       try {
         const res = await axios({
           method: "PATCH",
-          url: "https://localhost:7100/api/v1/users/updateMyInfo",
+          url: `${config.url}/api/v1/users/updateMyInfo`,
           data,
         });
         if (res.data.status === "success") {

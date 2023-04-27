@@ -10,7 +10,7 @@ document.querySelector(".form").addEventListener("submit", (event) => {
     try {
       const res = await axios({
         method: "POST",
-        url: '${config.url}/api/v1/users/login',
+        url: `${config.url}/api/v1/users/login`,
         data: {
           email,
           password,

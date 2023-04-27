@@ -8,7 +8,7 @@ document.getElementById("topbar-logout").addEventListener("click", (event) => {
     try {
       const res = await axios({
         method: "GET",
-        url: '${config.url}/api/v1/users/logout',
+        url: `${config.url}/api/v1/users/logout`,
       });0
       if (res.data.status === "success") {
         localStorage.removeItem("Cuser");
