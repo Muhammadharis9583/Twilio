@@ -4,6 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
+    "heroku-prebuild": "set NODE_ENV='production'",
     "start": "set NODE_ENV=production && nodemon app.js",
     "start:dev": "cd ./js && echo export const environment = 'development'; > config.js && cd ../ && nodemon app.js",
     "heroku-postbuild": "echo This runs after Heroku installs dependencies, but before Heroku prunes and caches dependencies.",
