@@ -4,12 +4,12 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "heroku-prebuild": "set NODE_ENV='production'",
+    "heroku-prebuild": "set NODE_ENV='production' && cd public/assets/js && echo export const environment = 'production'; > config.js && cd ../../../",
     "start": "set NODE_ENV='production' && nodemon app.js",
     "start:dev": "public\\assets\\js && echo export const environment = 'development'; > config.js && cd ../../../ && nodemon app.js",
-    "build": "cd public/assets/js && echo 'export const environment = 'production';' > config.js",
+    "build": "cd public/assets/js && echo export const environment = 'production'; > config.js && cd ../../../",
     "heroku-postbuild": "set NODE_ENV='production' && npm run build",
-    "heroku-cleanup": "set NODE_ENV='production' && cd public/assets/js && echo export const environment = 'production'; > config.js && cd ../../../"
+    "heroku-cleanup": "set NODE_ENV='production'"
   },
   "author": "",
   "license": "ISC",
