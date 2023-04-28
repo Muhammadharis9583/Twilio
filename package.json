@@ -6,7 +6,7 @@
   "scripts": {
     "heroku-prebuild": "set NODE_ENV='production' && node scripts/create-config.js",
     "start": "set NODE_ENV='production' && nodemon app.js",
-    "start:dev": "set NODE_ENV='deployement' && public\\assets\\js && echo export const environment = 'development'; > config.js && cd ../../../ && nodemon app.js",
+    "start:dev": "set NODE_ENV='development' && cd public/assets/js && echo export const environment = 'development'; > config.js && cd ../../../ && nodemon app.js",
     "build": "set NODE_ENV='production' && node scripts/create-config.js",
     "heroku-postbuild": "set NODE_ENV='production' && npm run build"
   },
