@@ -62,6 +62,10 @@ const userSchema = new mongoose.Schema({
       ref: "Gym",
     },
   ],
+  userRole: {
+    type: String,
+    required: [true, "Please provide a user role"],
+  },
   userType: {
     type: String,
     enum: ["employee", "customer"],

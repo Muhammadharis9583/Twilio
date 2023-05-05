@@ -1,5 +1,4 @@
 <%- contentFor('HeaderCss') %>
-
     <!-- swiper css -->
     <link rel="stylesheet" href="assets/libs/swiper/swiper-bundle.min.css">
 
@@ -21,13 +20,13 @@
                 <!--end col-->
                 <div class="col">
                     <div class="p-2">
-                        <h3 class="text-white mb-1">Anna Adame</h3>
-                        <p class="text-white-75">Owner & Founder</p>
+                        <h3 class="text-white mb-1"><%= user.firstName + " " + user.lastName %></h3>
+                        <p class="text-white-75"><%= user.userRole %></p>
                         <div class="hstack text-white-50 gap-1">
                             <div class="me-2"><i
-                                    class="ri-map-pin-user-line me-1 text-white-75 fs-16 align-middle"></i>California,
-                                United States</div>
-                            <div><i class="ri-building-line me-1 text-white-75 fs-16 align-middle"></i>Themesbrand
+                                    class="ri-map-pin-user-line me-1 text-white-75 fs-16 align-middle"></i><%= user.address.city %>,
+                                <%= user.address.country %></div>
+                            <div><i class="ri-building-line me-1 text-white-75 fs-16 align-middle"></i><%= user.address.city %>
                             </div>
                         </div>
                     </div>
@@ -117,24 +116,28 @@
                                                     <tbody>
                                                         <tr>
                                                             <th class="ps-0" scope="row">Full Name :</th>
-                                                            <td class="text-muted">Anna Adame</td>
+                                                            <td class="text-muted"><%= user.firstName + " " + user.lastName   %></td>
                                                         </tr>
                                                         <tr>
                                                             <th class="ps-0" scope="row">Mobile :</th>
-                                                            <td class="text-muted">+(1) 987 6543</td>
+                                                            <td class="text-muted"><%= user.contact %></td>
                                                         </tr>
                                                         <tr>
                                                             <th class="ps-0" scope="row">E-mail :</th>
-                                                            <td class="text-muted">daveadame@velzon.com</td>
+                                                            <td class="text-muted"><%= user.email %></td>
                                                         </tr>
                                                         <tr>
                                                             <th class="ps-0" scope="row">Location :</th>
-                                                            <td class="text-muted">California, United States
+                                                            <td class="text-muted">Street: <%= user.address.street %>, City: <%= user.address.city %>, State: <%= user.address.state %>, Country: <%= user.address.country %>
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <th class="ps-0" scope="row">Joining Date</th>
-                                                            <td class="text-muted">24 Nov 2021</td>
+                                                            <td class="text-muted"><%=user.createdAt.toLocaleDateString('en-US', {
+                                                                day: 'numeric',
+                                                                month: 'long',
+                                                                year: 'numeric',
+                                                              });%></td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
