@@ -1,7 +1,7 @@
-const AWS = require("aws-sdk");
 const dotenv = require("dotenv");
 const User = require("../models/userModel");
 const catchAsync = require("../utils/catchAsync");
+const axios = require('axios')
 
 dotenv.config({ path: "./config.env" });
 
@@ -11,17 +11,6 @@ dotenv.config({ path: "./config.env" });
 //   FunctionName: "Twilio_demo",
 //   InvocationType: "RequestResponse",
 // };
-AWS.config.update({
-  accessKeyId: process.env.AWS_ACCESS_KEY,
-  secretAccessKey: process.env.SECRET_ACCESS_KEY,
-  region: process.env.REGION,
-});
-const params = {
-  FunctionName: "Demo",
-  InvocationType: "RequestResponse",
-};
-
-const lambda = new AWS.Lambda();
 
 // twilio
 const accountSid = process.env.TWILIO_ACCOUNT_SID;
@@ -62,41 +51,39 @@ exports.sendMessage = (req, res) => {
   // const userContactNo = "+12564792178";
   const userContactNo = req.params.num;
   console.log(userContactNo);
-  lambda.invoke(params, function (err, data) {
-    if (err) console.log(err, err.stack);
-    else {
-      const response = JSON.parse(data.Payload);
-      const message = `There are ${
-        response.body.count
-      } persons in the Gym at ${unixTimestampToTime(response.body.timestamp)}`;
-      client.messages
+  axios
+      .get(
+        "https://ny3.blynk.cloud/external/api/get?token=qGRM7nfYo8XAwuZ8C6EDoG9U3d-hlT0O&V0"
+      )
+      .then((val) => {
+        const message = `There are ${val.data} persons at the Gym`
+        client.messages
         .create({
           body: message,
           from: process.env.MY_PHONE_NUM,
           to: userContactNo,
         })
         .then((message) => res.send(message));
+      })     
     }
-  });
-};
 
 exports.receiveMessageReply = (req, res) => {
   // console.log('running')
   const twiml = new MessagingResponse();
-  lambda.invoke(params, function (err, data) {
-    if (err) console.log(err, err.stack);
-    else {
-      const response = JSON.parse(data.Payload);
-      console.log(response.body.timestamp + response.body.count);
-      const message = `There are ${
-        response.body.count
-      } persons at the Gym at ${unixTimestampToTime(response.body.timestamp)}`;
-      twiml.message(message);
+  axios
+      .get(
+        "https://ny3.blynk.cloud/external/api/get?token=qGRM7nfYo8XAwuZ8C6EDoG9U3d-hlT0O&V0"
+      )
+      .then((val) => {
+        const message = `There are ${val.data} persons at the Gym`;
+        twiml.message(message);
       res.writeHead(200, { "Content-Type": "text/xml" });
       res.end(twiml.toString());
+      }).catch((err)=>{
+        res.end(err)
+      })
+      
     }
-  });
-};
 
 exports.listMessages = catchAsync(async (req, res, next) => {
   var logs = [];
