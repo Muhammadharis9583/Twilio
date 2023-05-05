@@ -2,6 +2,7 @@
 set /p commit_msg=Enter commit message: 
 
 git checkout main
-git merge dev --no-ff -m "%commit_msg%"
-git push origin main
+git pull heroku main
+git commit -m "%commit_msg%"
+git push heroku main
 pause
