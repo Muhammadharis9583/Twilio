@@ -810,6 +810,11 @@ route.get("/forms-validation", (req, res, next) => {
 route.get("/forms-wizard", (req, res, next) => {
   res.render("forms-wizard", { title: "Wizard", page_title: "Wizard", folder: "Forms" });
 });
+
+//Iverson
+route.get("/new-user", (req, res, next) => {
+  res.render("user-registration", { title: "New User", page_title: "New User", folder: "Forms" });
+});
 route.get("/forms-editors", (req, res, next) => {
   res.render("forms-editors", { title: "Editors", page_title: "Editors", folder: "Forms" });
 });
