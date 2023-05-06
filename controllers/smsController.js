@@ -1,7 +1,7 @@
 const dotenv = require("dotenv");
 const User = require("../models/userModel");
 const catchAsync = require("../utils/catchAsync");
-const axios = require('axios')
+const axios = require("axios");
 
 dotenv.config({ path: "./config.env" });
 
@@ -52,38 +52,34 @@ exports.sendMessage = (req, res) => {
   const userContactNo = req.params.num;
   console.log(userContactNo);
   axios
-      .get(
-        "https://ny3.blynk.cloud/external/api/get?token=qGRM7nfYo8XAwuZ8C6EDoG9U3d-hlT0O&V0"
-      )
-      .then((val) => {
-        const message = `There are ${val.data} persons at the Gym`
-        client.messages
+    .get(`https://ny3.blynk.cloud/external/api/get?token=${process.env.BLYNK_TOKEN}`)
+    .then((val) => {
+      const message = `There are ${val.data} persons at the Gym`;
+      client.messages
         .create({
           body: message,
           from: process.env.MY_PHONE_NUM,
           to: userContactNo,
         })
         .then((message) => res.send(message));
-      })     
-    }
+    });
+};
 
 exports.receiveMessageReply = (req, res) => {
   // console.log('running')
   const twiml = new MessagingResponse();
   axios
-      .get(
-        "https://ny3.blynk.cloud/external/api/get?token=qGRM7nfYo8XAwuZ8C6EDoG9U3d-hlT0O&V0"
-      )
-      .then((val) => {
-        const message = `There are ${val.data} persons at the Gym`;
-        twiml.message(message);
+    .get(`https://ny3.blynk.cloud/external/api/get?token=${process.env.BLYNK_TOKEN}`)
+    .then((val) => {
+      const message = `There are ${val.data} persons at the Gym`;
+      twiml.message(message);
       res.writeHead(200, { "Content-Type": "text/xml" });
       res.end(twiml.toString());
-      }).catch((err)=>{
-        res.end(err)
-      })
-      
-    }
+    })
+    .catch((err) => {
+      res.end(err);
+    });
+};
 
 exports.listMessages = catchAsync(async (req, res, next) => {
   var logs = [];
